@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container-fluid h-100 bg-light text-dark">
+  <div class="row justify-content-center align-items-center">
+    <h1>GreetingsForm</h1>
+            <div style="margin-left: 120px">
+    <button class="btn btn-primary"><a style="color: aliceblue" href="{% url 'guests' %}">History</a></button>
+          </div>
+  </div>
+
+
+  </div>
+  <hr/>
+        <div id="cover-caption">
+        <div class="container">
+                <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+    <form method="post" >
+     <div class="form-group">
+        {% csrf_token %}
+          {{ form }}
+        <button class="btn btn-primary">Submit</button>
+
+     </div>
+         <div class="form-group">
+        {% if messages %}
+    <ul class="messages" style="list-style-type: None">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {{ message }}
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+         </div>
+    </form>
+
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+    </div>
+
+{% endblock %}

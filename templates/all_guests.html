@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="list-group">
+{% for writing_down in guests %}
+    <li style="list-style-type: None" class="list-group-item">
+    Name: {{ writing_down.name }}
+    </li>
+    {% endfor %}
+    </div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+       {% if guests.has_previous %}
+            <a  href="?page={{ guests.previous_page_number }}">Previous</a>
+        {% endif %}
+    </li>
+Page {{ guests.number }} of {{ guests.paginator.num_pages }}
+    <li class="page-item">
+       {% if guests.has_next %}
+            <a  href="?page={{ guests.next_page_number }}">Next</a>
+        {% endif %}
+    </li>
+  </ul>
+</nav>
+
+
+
+{% endblock %}
