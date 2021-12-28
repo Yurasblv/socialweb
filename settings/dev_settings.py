@@ -1,5 +1,4 @@
 import os
-
 from settings.local_settings import *
 
 
