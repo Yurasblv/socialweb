@@ -15,9 +15,10 @@ def title_page(request):
             if guest is None:
                 guest = GuestModel.objects.create(name=form.data['name'])
                 guest.save()
-                return redirect('guests')
+                messages.success(request,f'Hello,dear {guest.name}! ;]')
+                return redirect('title')
             else:
-                messages.error(request,'User already exists')
+                messages.error(request,'This user greetz yet ;]')
                 return redirect('title')
         return render(request, 'title.html', {'form': form})
     return render(request, 'title.html', {'form': form})
