@@ -1,3 +1,0 @@
-web: gunicorn socialweb.wsgi --log-file -
-release: python manage.py migrate
-heroku ps:scale web=1
