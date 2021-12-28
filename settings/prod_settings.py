@@ -1,4 +1,4 @@
-from settings.local_settings import *
+from settings.dev_settings import *
 
 
 
