@@ -6,5 +6,12 @@ from django import forms
 class TitleForm(ModelForm):
     class Meta:
         model = GuestModel
-        fields = ['name']
+        fields = ["name"]
+        widgets = {
+            "name": forms.TextInput(attrs={"placeholder": "Without digits and symbols"})
+        }
 
+    def clean_guest(self):
+        guest = self.cleaned_data.get("name")
+        if guest.isalpha():
+            return guest
