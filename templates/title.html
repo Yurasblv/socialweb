@@ -54,9 +54,8 @@
             data: $('#form').serialize(),
             datatype: 'json',
             success: function (data){
-                    form.reset();
                     console.log(data.msg);
-                    $('#ajax-form').append(data.msg)
+                    $('#ajax-form').html(data.msg)
                     form.reset();
                     }
 
