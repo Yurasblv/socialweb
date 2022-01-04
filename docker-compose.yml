@@ -8,9 +8,9 @@ services:
         volumes:
             - postgresql-data:/var/lib/postgresql/data
         environment:
-            - POSTGRES_DB=greetingdata
-            - POSTGRES_USER=greetinguser
-            - POSTGRES_PASSWORD=greetingpassword
+            - POSTGRES_DB=greetdata
+            - POSTGRES_USER=greetguser
+            - POSTGRES_PASSWORD=greetpass
 
 
     app:
@@ -23,15 +23,15 @@ services:
         env_file:
         - .env.dev
         environment:
-        - NAME=greetingdata
-        - USER=greetinguser
-        - PASSWORD=greetingpassword
+        - NAME=greetdata
+        - USER=greetuser
+        - PASSWORD=greetpass
         - HOST=db
         - DJANGO_SETTINGS_MODULE=settings.dev_settings
         command: >
              sh -c "python manage.py collectstatic --noinput &&
-             python manage.py makemigrations app &&
-             python manage.py migrate app &&
+             python manage.py makemigrations &&
+             python manage.py migrate  &&
              python manage.py runserver 0.0.0.0:8000"
         depends_on:
             - db
