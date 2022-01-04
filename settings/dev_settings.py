@@ -13,5 +13,7 @@ DATABASES = {
         "USER": os.environ.get("USER"),
         "PASSWORD": os.environ.get("PASSWORD"),
         "HOST": os.environ.get("HOST"),
+        'PORT': 5432,
+
     }
 }

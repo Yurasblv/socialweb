@@ -8,10 +8,12 @@ class TitleForm(ModelForm):
         model = GuestModel
         fields = ["name"]
         widgets = {
-            "name": forms.TextInput(attrs={"placeholder": "Without digits and symbols"})
+            "name": forms.TextInput(
+                attrs={"placeholder": "Without digits and symbols"}
+            )
         }
 
-    def clean_guest(self):
+    def clean_name(self):
         guest = self.cleaned_data.get("name")
         if guest.isalpha():
             return guest

@@ -4,13 +4,11 @@ from app.models import GuestModel
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from functools import lru_cache
-from datetime import datetime
 
 
 @lru_cache(maxsize=100)
 def check_data_in_db(name):
-    model = GuestModel.objects.filter(name=name).exists()
-    return model
+    return GuestModel.objects.filter(name=name).exists()
 
 
 def title_page(request):
@@ -21,19 +19,25 @@ def title_page(request):
         if request.method == "POST":
             form = TitleForm(request.POST)
             if form.is_valid():
-                if form.clean_guest():
-                    guest = check_data_in_db(form.data["name"])
-                    if guest is False:
-                        form.save()
-                        return JsonResponse(
-                            {
-                                "msg": f"Hi {form.data['name']} =)",
-                            }
-                        )
+                guest = check_data_in_db(form.data["name"])
+                if guest is False:
+                    form.save()
+                    return JsonResponse(
+                        {
+                            "msg": f"Hi {form.data['name']} =)",
+                        }
+                    )
                 return JsonResponse(
-                    {"msg": f"{form.data['name']} not allowed , wrong format of name!"}
+                    {
+                        "msg": f"{form.data['name']} already exists =]"
+                    }
                 )
-            return JsonResponse({"msg": f"{form.data['name']} already exists =]"})
+            return JsonResponse(
+                {
+                    "msg": f"{form.data['name']} not allowed ,"
+                           f"wrong format of name!"
+                }
+            )
     return render(request, "title.html", {"form": form})
 
 
