@@ -1,5 +1,5 @@
 
-![Build Status ](https://github.com/Yurasblv/socialweb/actions/workflows/main.yml/badge.svg?branch=main)
+![Build Status ](https://github.com/Yurasblv/socialweb/actions/workflows/django.yml/badge.svg?branch=main)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 ![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)
 
