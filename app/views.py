@@ -27,16 +27,9 @@ def title_page(request):
                             "msg": f"Hi {form.data['name']} =)",
                         }
                     )
-                return JsonResponse(
-                    {
-                        "msg": f"{form.data['name']} already exists =]"
-                    }
-                )
+                return JsonResponse({"msg": f"{form.data['name']} already exists =]"})
             return JsonResponse(
-                {
-                    "msg": f"{form.data['name']} not allowed ,"
-                           f"wrong format of name!"
-                }
+                {"msg": f"{form.data['name']} not allowed ," f"wrong format of name!"}
             )
     return render(request, "title.html", {"form": form})
 

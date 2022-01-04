@@ -8,9 +8,7 @@ class TitleForm(ModelForm):
         model = GuestModel
         fields = ["name"]
         widgets = {
-            "name": forms.TextInput(
-                attrs={"placeholder": "Without digits and symbols"}
-            )
+            "name": forms.TextInput(attrs={"placeholder": "Without digits and symbols"})
         }
 
     def clean_name(self):
