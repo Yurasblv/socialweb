@@ -15,4 +15,3 @@ class TitleForm(ModelForm):
         guest = self.cleaned_data.get("name")
         if guest.isalpha():
             return guest.lower()
-
