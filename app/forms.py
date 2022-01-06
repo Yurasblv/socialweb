@@ -4,14 +4,17 @@ from django import forms
 
 
 class TitleForm(ModelForm):
+    name = forms.CharField(
+        error_messages={"unique": "This name is already exists =("},
+        widget=forms.TextInput(attrs={"placeholder": ("No symbols and digits")}),
+    )
+
     class Meta:
         model = GuestModel
         fields = ["name"]
-        widgets = {
-            "name": forms.TextInput(attrs={"placeholder": "Without digits and symbols"})
-        }
 
     def clean_name(self):
         guest = self.cleaned_data.get("name")
-        if guest.isalpha():
-            return guest.lower()
+        if not guest.isalpha():
+            raise forms.ValidationError("Name must contains only letters!")
+        return guest.lower()

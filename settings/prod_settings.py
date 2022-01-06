@@ -8,7 +8,7 @@ ALLOWED_HOSTS = ["*"]
 
 
 DATABASES = {"default": dj_database_url.config(conn_max_age=600)}
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 
 django_heroku.settings(locals())
