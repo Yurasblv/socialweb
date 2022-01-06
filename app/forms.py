@@ -19,3 +19,4 @@ class TitleForm(forms.Form):
         return GuestModel.objects.create(name=self.cleaned_data['name'])
 
 
+

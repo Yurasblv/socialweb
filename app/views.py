@@ -9,7 +9,9 @@ from django.views.decorators.http import require_http_methods, require_GET
 
 @lru_cache()
 def check_data_in_db(name):
-    return GuestModel.objects.filter(name=name).exists()
+    return GuestModel.objects.filter(name=name.lower()).exists()
+
+
 
 
 @require_http_methods(["GET", "POST"])
@@ -19,14 +21,9 @@ def title_page(request):
     if request.method == "POST" and is_ajax:
         form = TitleForm(request.POST)
         if form.is_valid():
-            guest = check_data_in_db(form.data["name"])
-            if guest == 'False':
+            if check_data_in_db(form.data["name"]) is False:
                 form.save()
-                return JsonResponse(
-                    {
-                        "msg": f"Hi {form.data['name']} =)",
-                    }
-                )
+                return JsonResponse({"msg": f"Hi {form.data['name']} =)",})
             return JsonResponse({'msg':f"{form.data['name']} exists yet =("})
         return JsonResponse({"msg": f"{form.errors['name'][0]}"})
     return render(request, "title.html", {"form": form})
