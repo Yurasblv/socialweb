@@ -19,7 +19,6 @@ def title_page(request):
     if request.method == "POST" and is_ajax:
         form = TitleForm(request.POST)
         if form.is_valid():
-            print(form.errors)
             guest = check_data_in_db(form.data["name"])
             if guest == 'False':
                 form.save()
