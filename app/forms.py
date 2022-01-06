@@ -1,4 +1,3 @@
-from django.forms import ModelForm
 from app.models import GuestModel
 from django import forms
 
@@ -8,7 +7,6 @@ class TitleForm(forms.Form):
         widget=forms.TextInput(attrs={"placeholder": ("No symbols and digits")}),
     )
 
-
     def clean_name(self):
         guest = self.cleaned_data["name"]
         if not guest.isalpha():
@@ -16,7 +14,4 @@ class TitleForm(forms.Form):
         return guest.lower()
 
     def save(self):
-        return GuestModel.objects.create(name=self.cleaned_data['name'])
-
-
-
+        return GuestModel.objects.create(name=self.cleaned_data["name"])

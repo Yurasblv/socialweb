@@ -12,8 +12,6 @@ def check_data_in_db(name):
     return GuestModel.objects.filter(name=name.lower()).exists()
 
 
-
-
 @require_http_methods(["GET", "POST"])
 def title_page(request):
     form = TitleForm()
@@ -23,8 +21,12 @@ def title_page(request):
         if form.is_valid():
             if check_data_in_db(form.data["name"]) is False:
                 form.save()
-                return JsonResponse({"msg": f"Hi {form.data['name']} =)",})
-            return JsonResponse({'msg':f"{form.data['name']} exists yet =("})
+                return JsonResponse(
+                    {
+                        "msg": f"Hi {form.data['name']} =)",
+                    }
+                )
+            return JsonResponse({"msg": f"{form.data['name']} exists yet =("})
         return JsonResponse({"msg": f"{form.errors['name'][0]}"})
     return render(request, "title.html", {"form": form})
 
