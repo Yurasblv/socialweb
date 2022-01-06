@@ -7,7 +7,7 @@ from functools import lru_cache
 from django.views.decorators.http import require_http_methods, require_GET
 
 
-@lru_cache()
+# @lru_cache()
 def check_data_in_db(name):
     return GuestModel.objects.filter(name=name.lower()).exists()
 
@@ -19,14 +19,17 @@ def title_page(request):
     if request.method == "POST" and is_ajax:
         form = TitleForm(request.POST)
         if form.is_valid():
-            if check_data_in_db(form.data["name"]) is False:
-                form.save()
+            name = form.cleaned_data['name']
+            print(name)
+            if check_data_in_db(name) is False:
+                form.save(name)
                 return JsonResponse(
                     {
                         "msg": f"Hi {form.data['name']} =)",
                     }
                 )
-            return JsonResponse({"msg": f"{form.data['name']} exists yet =("})
+            if check_data_in_db(name) is True:
+                return JsonResponse({"msg": f"{form.data['name']} exists yet =("})
         return JsonResponse({"msg": f"{form.errors['name'][0]}"})
     return render(request, "title.html", {"form": form})
 
