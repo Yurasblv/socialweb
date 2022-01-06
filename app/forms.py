@@ -3,18 +3,19 @@ from app.models import GuestModel
 from django import forms
 
 
-class TitleForm(ModelForm):
+class TitleForm(forms.Form):
     name = forms.CharField(
-        error_messages={"unique": "This name is already exists =("},
         widget=forms.TextInput(attrs={"placeholder": ("No symbols and digits")}),
     )
 
-    class Meta:
-        model = GuestModel
-        fields = ["name"]
 
     def clean_name(self):
-        guest = self.cleaned_data.get("name")
+        guest = self.cleaned_data["name"]
         if not guest.isalpha():
             raise forms.ValidationError("Name must contains only letters!")
         return guest.lower()
+
+    def save(self):
+        return GuestModel.objects.create(name=self.cleaned_data['name'])
+
+

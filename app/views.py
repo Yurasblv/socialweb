@@ -19,13 +19,16 @@ def title_page(request):
     if request.method == "POST" and is_ajax:
         form = TitleForm(request.POST)
         if form.is_valid():
-            check_data_in_db(form.data["name"])
-            form.save()
-            return JsonResponse(
-                {
-                    "msg": f"Hi {form.data['name']} =)",
-                }
-            )
+            print(form.errors)
+            guest = check_data_in_db(form.data["name"])
+            if guest == 'False':
+                form.save()
+                return JsonResponse(
+                    {
+                        "msg": f"Hi {form.data['name']} =)",
+                    }
+                )
+            return JsonResponse({'msg':f"{form.data['name']} exists yet =("})
         return JsonResponse({"msg": f"{form.errors['name'][0]}"})
     return render(request, "title.html", {"form": form})
 
@@ -33,7 +36,7 @@ def title_page(request):
 @require_GET
 def all_guests_page(request):
     guests = GuestModel.objects.order_by("id")
-    paginator = Paginator(guests, 15)
+    paginator = Paginator(guests, 10)
     page = request.GET.get("page")
     try:
         guests = paginator.page(page)
