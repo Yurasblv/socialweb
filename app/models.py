@@ -6,5 +6,3 @@ class GuestModel(models.Model):
 
     def __str__(self):
         return "id: {} , name: {}".format(self.id, self.name)
-
-

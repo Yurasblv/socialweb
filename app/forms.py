@@ -13,5 +13,5 @@ class TitleForm(forms.Form):
             raise forms.ValidationError("Name must contains only letters!")
         return guest.lower()
 
-    def save(self,name):
+    def save(self, name):
         return GuestModel.objects.create(name=name)
