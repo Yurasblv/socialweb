@@ -8,12 +8,11 @@ from django.core.cache import cache
 
 
 def check_data_in_db(name):
-    data = name.lower()
-    cached_name = cache.get(data)
+    cached_name = cache.get(name)
     if not cached_name:
-        cached_name = GuestModel.objects.filter(name=data).exists()
-    if cached_name:
-        cache.set(data, cached_name)
+        cached_name = GuestModel.objects.filter(name=name).exists()
+        if cached_name == True:
+            cache.set(name, cached_name)
     return cached_name
 
 
