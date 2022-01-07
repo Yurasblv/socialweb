@@ -13,8 +13,9 @@ def check_data_in_db(name):
     if not cached_name:
         cached_name = GuestModel.objects.filter(name=data).exists()
     if cached_name:
-        cache.set(data,cached_name)
+        cache.set(data, cached_name)
     return cached_name
+
 
 @require_http_methods(["GET", "POST"])
 def title_page(request):
