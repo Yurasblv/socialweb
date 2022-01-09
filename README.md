@@ -22,8 +22,12 @@ To launch an app use command:
     
     docker-compose up 
 
-While app is working create admin role by command:
+While app is working use commands:
 
     1. docker exec -it container_id bash
-    2. python manage.py createsuperuser
+    2. python manage.py createsuperuser (to create admin role)
+    3. python manage.py test (to run tests)
+    
+
+    
 
