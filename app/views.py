@@ -11,7 +11,7 @@ def check_data_in_db(name):
     cached_name = cache.get(name)
     if not cached_name:
         cached_name = GuestModel.objects.filter(name=name).exists()
-        if cached_name == True:
+        if cached_name:
             cache.set(name, cached_name)
     return cached_name
 
@@ -19,8 +19,7 @@ def check_data_in_db(name):
 @require_http_methods(["GET", "POST"])
 def title_page(request):
     form = TitleForm()
-    is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
-    if request.method == "POST" and is_ajax:
+    if request.method == "POST":
         form = TitleForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data["name"]
